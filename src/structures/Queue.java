@@ -78,19 +78,7 @@ public class Queue <T>{
 			head = node;
 		}
 	}
-
-//	public Node<T> getMaxElement(){
-//		Node<T> actual = head;
-//		Node<T> max = head;
-//		while (actual.getNext() != null) {
-//			if (comparator.compare(max.getInformation(), actual.getInformation()) < 0) {
-//				max = actual;
-//			}
-//			actual = actual.getNext();
-//		}
-//		return max;
-//	}
-
+	
 	public Node<T> getHead() {
 		return head;
 	}
@@ -101,16 +89,7 @@ public class Queue <T>{
 		reference.setNext(null);
 		return reference;
 	}
-
-//	private void print() {
-//		Node<T> current = head;
-//		System.out.println("print");
-//		while (current != null) {
-//			System.out.println(current.getInformation());
-//			current = current.getNext();
-//		}
-//	}
-
+	
 	public void priorityQueue(Node<T> node) {
 		System.out.println("agregaaaaaaa");
 		Node<T> current = head;
@@ -128,65 +107,6 @@ public class Queue <T>{
 			}
 		}else {
 			head = node;
-		}
-	}
-	
-	public void priorityQueueDate(Node<T> node) {
-		Node<T> current = head;
-		if(head != null) {
-//			comparator.compare(node.getInformation(), current.getInformation());
-//			if(Integer.parseInt(node.getInformation().toString()) > priorityMax) {
-			if(comparator.compare(node.getInformation(), current.getInformation()) > 0) {
-				node.setNext(head);
-				head = node;
-			}else {
-				while (comparator.compare(node.getInformation(), current.getInformation()) < 0) {
-					current = current.getNext();
-				}
-				strainBefore(current.getInformation(), node);
-			}
-		}else {
-			head = node;
-		}
-	}
-	
-	
-	public void push(Node<T> node) {
-		if(head != null) {
-			node.setNext(head);
-			head = node;
-		}else {
-			head = node;
-		}
-	}
-
-//	public Node<T> pop() {
-//		Node<T> popNode = head;
-//		head = head.getNext();
-//		popNode.setNext(null);
-//		return popNode;
-//	}
-	
-	public Node<T> pop() throws Exception {
-	if(head != null) {
-		Node<T> popNode = head;
-		head = head.getNext();
-		popNode.setNext(null);
-		return popNode;
-		}else {
-			throw new Exception("no hay mas elementos en la lista");
-		}
-	}
-	
-	public void enqueueCircle(Node<T> node) {
-		if(head != null) {
-			System.out.println(node.getInformation());
-			last.setNext(node);
-			node.setNext(head);
-			last = node;
-		}else {
-			head = node;
-			last = head;
 		}
 	}
 }
