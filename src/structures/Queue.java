@@ -1,15 +1,11 @@
 package structures;
 
-import java.util.Comparator;
-
 public class Queue <T>{
 
 	private Node<T> head;
 	private Node<T> last;
-	private Comparator<T> comparator;
 
-	public Queue(Comparator<T> comparator) {
-		this.comparator = comparator;
+	public Queue() {
 	}
 
 	public void enqueue(Node<T> node){
@@ -90,23 +86,11 @@ public class Queue <T>{
 		return reference;
 	}
 	
-	public void priorityQueue(Node<T> node) {
-		System.out.println("agregaaaaaaa");
+	public void print() {
 		Node<T> current = head;
-		if(head != null) {
-//			comparator.compare(node.getInformation(), current.getInformation());
-//			if(Integer.parseInt(node.getInformation().toString()) > priorityMax) {
-			if(comparator.compare(node.getInformation(), current.getInformation()) > 0) {
-				node.setNext(head);
-				head = node;
-			}else {
-				while (comparator.compare(node.getInformation(), current.getInformation()) < 0) {
-					current = current.getNext();
-				}
-				strainBefore(current.getInformation(), node);
-			}
-		}else {
-			head = node;
+		while (current != null) {
+			System.out.println(current.getInformation());
+			current = current.getNext();
 		}
 	}
 }

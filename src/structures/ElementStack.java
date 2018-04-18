@@ -1,6 +1,5 @@
 package structures;
 
-
 public class ElementStack <T>{
 
 	private Node<T> head;
@@ -98,6 +97,14 @@ public class ElementStack <T>{
 		}else {
 			head = node;
 			last = head;
+		}
+	}
+	
+	public void print() {
+		Node<T> current = head;
+		while (current != null) {
+			System.out.println(current.getInformation());
+			current = current.getNext();
 		}
 	}
 }
