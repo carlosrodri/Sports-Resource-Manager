@@ -27,20 +27,20 @@ public class DaoManager {
 		}
 	}
 
-	public void generateAllBallFootball(){
-		for (int i = 0; i < 20; i++) {
+	private void generateAllBallFootball(int quantum){
+		for (int i = 0; i < quantum; i++) {
 			footballStack.push(new Node<Element>(new Element(i, "footballBall")));
 		}
 	}
 
-	public void generateAllBasketBall(int quantum){
+	private void generateAllBasketBall(int quantum){
 		for (int i = 0; i < quantum; i++) {
 			basketStcak.push(new Node<Element>(new Element(i, "basketBall")));
 		}
 	}
 
-	public void generateAllBallVolley(){
-		for (int i = 0; i < 20; i++) {
+	private void generateAllBallVolley(int quantum){
+		for (int i = 0; i < quantum; i++) {
 			voleyStack.push(new Node<Element>(new Element(i, "VolleyBall")));
 		}
 	}
@@ -59,6 +59,12 @@ public class DaoManager {
 		}
 	}
 
+	public void generateAllBalls(int quantum) {
+		generateAllBasketBall(quantum);
+		generateAllBallVolley(quantum);
+		generateAllBallFootball(quantum);
+	}
+	
 	private void addFootball() throws Exception {
 		requestQueue.enqueue(new Node<Petition>(new Petition(studentQueue.dequeue().getInformation(),new GregorianCalendar(),
 				footballStack.pop().getInformation())));
