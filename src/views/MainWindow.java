@@ -1,40 +1,54 @@
 package views;
 
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.TitledBorder;
 import constants.ConstantsUI;
 import controllers.Actions;
 import controllers.Controller;
 import models.entities.Element;
+import models.entities.Petition;
+import models.entities.Student;
 import structures.ElementStack;
+import structures.Queue;
 
 public class MainWindow extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private PanelDrawing panelDrawing;
-	private JSpinner spinner;
-	private SpinnerNumberModel numberModel;
+	private JSpinner spinner, spinnerStudents;
+	private SpinnerNumberModel numberModel, model;
 	private JButton btnAccept;
 	
 	public MainWindow(Controller controller) {
+		GridSystem gridSystem = new GridSystem(this);
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		numberModel = new SpinnerNumberModel(1, 1, 15, 1);
+		model = new SpinnerNumberModel(1, 1, 15, 1);
+		
 		spinner = new JSpinner(numberModel);
+		spinner.setBorder(new TitledBorder(ConstantsUI.NUMBER_OF_BALLS));
+		
+		spinnerStudents = new JSpinner(model);
+		spinnerStudents.setBorder(new TitledBorder(ConstantsUI.NUMBER_OF_STUDENTS));
 		
 		btnAccept = new JButton(ConstantsUI.ACCEPT_TEXT);
 		btnAccept.setActionCommand(Actions.ACCEPT.toString());
 		btnAccept.addActionListener(controller);
-		add(btnAccept, BorderLayout.SOUTH);
 		
 		panelDrawing = new PanelDrawing();
+		JScrollPane scrollPane = new JScrollPane(panelDrawing);
 		
-		add(panelDrawing, BorderLayout.CENTER);
-		add(spinner, BorderLayout.PAGE_START);
+		add(spinner, gridSystem.insertComponent(1, 0, 1, 0.01));
+		add(spinnerStudents, gridSystem.insertComponent(2, 0, 1, 0.01));
+		add(btnAccept, gridSystem.insertComponent(3, 0, 1, 0.01));
+		add(scrollPane, gridSystem.insertComponent(0, 1, 11, 0.9));
 		setVisible(true);
 	}
 
@@ -55,5 +69,23 @@ public class MainWindow extends JFrame{
 	
 	public int getQuantum() {
 		return Integer.parseInt(spinner.getValue().toString());
+	}
+	
+	public int getQuantumStudents() {
+		return Integer.parseInt(spinnerStudents.getValue().toString());
+	}
+
+	public void setStudents(Queue<Student> studentQueue) {
+		panelDrawing.setStudents(studentQueue);
+		panelDrawing.repaint();
+	}
+	
+	public void setPetition(Queue<Petition> petition) {
+		panelDrawing.setPetition(petition);
+		panelDrawing.repaint();
+	}
+
+	public void stopSimulation() {
+		JOptionPane.showMessageDialog(null, ConstantsUI.FINISH_SIMULATION);
 	}
 }

@@ -12,6 +12,7 @@ public class DaoManager {
 	private Queue<Student> studentQueue;
 	private Queue<Petition> requestQueue;
 	private ElementStack<Element> footballStack, basketStcak, voleyStack;
+	private String list;
 
 	public DaoManager() {
 		requestQueue = new Queue<>();
@@ -21,25 +22,29 @@ public class DaoManager {
 		voleyStack = new ElementStack<>();
 	}
 
-	public void generateAllStudents(){
-		for (int i = 0; i < 20; i++) {
+	private void generateAllStudents(int quantumStudents){
+		studentQueue.clear();
+		for (int i = 0; i < quantumStudents; i++) {
 			studentQueue.enqueue(new Node<Student>(new Student(i, "Student n "+i)));
 		}
 	}
 
 	private void generateAllBallFootball(int quantum){
+		footballStack.clear();
 		for (int i = 0; i < quantum; i++) {
 			footballStack.push(new Node<Element>(new Element(i, "footballBall")));
 		}
 	}
 
 	private void generateAllBasketBall(int quantum){
+		basketStcak.clear();
 		for (int i = 0; i < quantum; i++) {
 			basketStcak.push(new Node<Element>(new Element(i, "basketBall")));
 		}
 	}
 
 	private void generateAllBallVolley(int quantum){
+		voleyStack.clear();
 		for (int i = 0; i < quantum; i++) {
 			voleyStack.push(new Node<Element>(new Element(i, "VolleyBall")));
 		}
@@ -47,24 +52,25 @@ public class DaoManager {
 
 	public void addPetition(String element) throws Exception {
 		switch (element) {
-		case "Volley":
+		case "volley":
 			addVolley();
 			break;
 		case "Basket":
 			addBasket();
 			break;
-		case "Football":
+		case "football":
 			addFootball();
 			break;
 		}
 	}
 
-	public void generateAllBalls(int quantum) {
+	public void generateAllElements(int quantum, int quantumStudents) {
 		generateAllBasketBall(quantum);
 		generateAllBallVolley(quantum);
 		generateAllBallFootball(quantum);
+		generateAllStudents(quantumStudents);
 	}
-	
+
 	private void addFootball() throws Exception {
 		requestQueue.enqueue(new Node<Petition>(new Petition(studentQueue.dequeue().getInformation(),new GregorianCalendar(),
 				footballStack.pop().getInformation())));
@@ -90,5 +96,31 @@ public class DaoManager {
 
 	public ElementStack<Element> getFootballStack() {
 		return footballStack;
+	}
+
+	public Queue<Student> getStudentQueue() {
+		return studentQueue;
+	}
+
+	public Queue<Petition> getRequestQueue() {
+		return requestQueue;
+	}
+
+	public boolean validate() {
+		if(studentQueue.isEmpty()) {
+			list = "student";
+			return true;
+		}else if (footballStack.isEmpty()) {
+			list = "football";
+			return true;
+		}else if(basketStcak.isEmpty()) {
+			list = "basket";
+			return true;
+		}else if(voleyStack.isEmpty()) {
+			list = "volley";
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

@@ -6,15 +6,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import constants.ConstantsUI;
 import models.entities.Element;
+import models.entities.Petition;
+import models.entities.Student;
 import structures.ElementStack;
 import structures.Node;
+import structures.Queue;
 
 public class PanelDrawing extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private ElementStack<Element> volley, basket, football;
+	private Queue<Student> student;
+	private Queue<Petition> petition;
 	public PanelDrawing() {
 		basket = new ElementStack<>();
+		student = new Queue<>();
+		petition = new Queue<>();
 	}
 
 	@Override 
@@ -23,10 +30,12 @@ public class PanelDrawing extends JPanel{
 		paintBasket(g);
 		paintVolley(g);
 		paintFootball(g);
+		paintStudent(g);
+		paintPetition(g);
 		paintStore(g);
 	}
 
-	public void paintBasket(Graphics g) {
+	private void paintBasket(Graphics g) {
 		int x = 250; int y = 20;
 		if(basket != null) {
 			Node<Element> current = basket.getHead();
@@ -39,7 +48,7 @@ public class PanelDrawing extends JPanel{
 		}
 	}
 
-	public void paintFootball(Graphics g) {
+	private void paintFootball(Graphics g) {
 		int x = 250; int y = 70;
 		if(football != null) {
 			Node<Element> current = football.getHead();
@@ -52,7 +61,7 @@ public class PanelDrawing extends JPanel{
 		}
 	}
 
-	public void paintVolley(Graphics g) {
+	private void paintVolley(Graphics g) {
 		int x = 250; int y = 110;
 		if(volley != null) {
 			Node<Element> current = volley.getHead();
@@ -61,6 +70,32 @@ public class PanelDrawing extends JPanel{
 				g.drawImage(img, x, y, this);
 				current = current.getNext();
 				x += 40;
+			}
+		}
+	}
+
+	private void paintStudent(Graphics g) {
+		int x = 100; int y = 180;
+		if(student != null) {
+			Node<Student> current = student.getHead();
+			Image img = new ImageIcon(getClass().getResource(ConstantsUI.PEOPLE)).getImage();
+			while (current != null) {
+				g.drawImage(img, x, y, this);
+				current = current.getNext();
+				y += 60;
+			}
+		}
+	}
+	
+	private void paintPetition(Graphics g){
+		int x = 1000; int y = 180;
+		if(petition != null) {
+			Node<Petition> current = petition.getHead();
+			Image img = new ImageIcon(getClass().getResource(ConstantsUI.PLAY)).getImage();
+			while (current != null) {
+				g.drawImage(img, x, y, this);
+				current = current.getNext();
+				y += 60;
 			}
 		}
 	}
@@ -78,5 +113,13 @@ public class PanelDrawing extends JPanel{
 	}
 	public void setFootball(ElementStack<Element> football) {
 		this.football = football;
+	}
+
+	public void setStudents(Queue<Student> studentQueue) {
+		this.student = studentQueue;
+	}
+
+	public void setPetition(Queue<Petition> petition) {
+		this.petition = petition;
 	}
 }

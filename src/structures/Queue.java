@@ -93,4 +93,8 @@ public class Queue <T>{
 			current = current.getNext();
 		}
 	}
+	
+	public void clear() {
+		head = null;
+	}
 }
