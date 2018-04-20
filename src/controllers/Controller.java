@@ -49,6 +49,7 @@ public class Controller implements ActionListener{
 					mainWindow.setPetition(daoManager.getRequestQueue());
 				}else {
 					timer.stop();
+					daoManager.restartLists();
 					mainWindow.stopSimulation();
 				}
 			}

@@ -112,6 +112,9 @@ public class PanelDrawing extends JPanel{
 		g.drawImage(img, 100, 65, this);
 	}
 
+	public void showGif() {
+		gr.drawImage(new ImageIcon(getClass().getResource(ConstantsUI.GIF)).getImage(), 100, 70, this);
+	}
 	public void setBasket(ElementStack<Element> basket) {
 		this.basket = basket;
 	}
@@ -130,7 +133,4 @@ public class PanelDrawing extends JPanel{
 		this.petition = petition;
 	}
 
-	public void showGif() {
-		gr.drawImage(new ImageIcon(ConstantsUI.GIF).getImage(), 100, 700, this);
-	}
 }

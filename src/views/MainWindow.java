@@ -3,7 +3,6 @@ package views;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -32,6 +31,7 @@ public class MainWindow extends JFrame{
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getClass().getResource(ConstantsUI.ICON)).getImage());
+		setTitle(ConstantsUI.TITLE);
 		
 		numberModel = new SpinnerNumberModel(1, 1, 15, 1);
 		model = new SpinnerNumberModel(1, 1, 15, 1);

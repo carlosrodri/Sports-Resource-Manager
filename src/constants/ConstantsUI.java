@@ -14,5 +14,6 @@ public class ConstantsUI {
 	public static final String NUMBER_OF_BALLS = "Number of balls";
 	public static final String NUMBER_OF_STUDENTS = "Number of students";
 	public static final String FINISH_SIMULATION = "The simulation finished";
+	public static final String TITLE = "Sports Resource Manager V0.1 premium";
 	public static final long SECONDS = 3000;
 }

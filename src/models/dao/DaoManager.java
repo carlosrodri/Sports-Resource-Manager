@@ -130,4 +130,32 @@ public class DaoManager {
 		String [] names={"Basket", "volley", "football"};
 		return names[num];
 	}
+
+	public void restartLists() {
+		switch (list) {
+		case "volley":
+			pushVolley();
+			break;
+		case "Basket":
+			pushBasket();
+			break;
+		case "football":
+			pushFootball();
+			break;
+		}
+	}
+
+	private void pushFootball() {
+		footballStack.push(new Node<Element>(requestQueue.dequeue().getInformation().getElement()));
+	}
+
+	private void pushBasket() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void pushVolley() {
+		// TODO Auto-generated method stub
+		
+	}
 }
