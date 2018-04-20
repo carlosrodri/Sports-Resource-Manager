@@ -42,7 +42,7 @@ public class Controller implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				if(!daoManager.validate()) {
 					try {
-						daoManager.addPetition(randomBalls());
+						daoManager.addPetition(daoManager.randomBalls());
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -54,14 +54,6 @@ public class Controller implements ActionListener{
 			}
 		});
 		timer.start();
-	}
-
-	private String randomBalls() {
-		int num = (int) (Math.random() * 3);
-		String [] names={"Basket", "volley", "football"};
-		System.out.println(num + "balones");
-
-		return names[num];
 	}
 
 	private void acceptSimulation() {

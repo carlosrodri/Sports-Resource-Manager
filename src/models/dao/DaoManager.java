@@ -12,6 +12,7 @@ public class DaoManager {
 	private Queue<Student> studentQueue;
 	private Queue<Petition> requestQueue;
 	private ElementStack<Element> footballStack, basketStcak, voleyStack;
+	@SuppressWarnings("unused")
 	private String list;
 
 	public DaoManager() {
@@ -122,5 +123,11 @@ public class DaoManager {
 		}else {
 			return false;
 		}
+	}
+
+	public String randomBalls() {
+		int num = (int) (Math.random() * 3);
+		String [] names={"Basket", "volley", "football"};
+		return names[num];
 	}
 }

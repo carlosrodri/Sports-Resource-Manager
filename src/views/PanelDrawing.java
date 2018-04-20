@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -18,6 +19,8 @@ public class PanelDrawing extends JPanel{
 	private ElementStack<Element> volley, basket, football;
 	private Queue<Student> student;
 	private Queue<Petition> petition;
+	private int y;
+	private Graphics gr;
 	public PanelDrawing() {
 		basket = new ElementStack<>();
 		student = new Queue<>();
@@ -27,6 +30,8 @@ public class PanelDrawing extends JPanel{
 	@Override 
 	public void paint(Graphics g) {
 		super.paint(g);
+		gr = g;
+		setPreferredSize(new Dimension(getWidth(), y));
 		paintBasket(g);
 		paintVolley(g);
 		paintFootball(g);
@@ -83,6 +88,7 @@ public class PanelDrawing extends JPanel{
 				g.drawImage(img, x, y, this);
 				current = current.getNext();
 				y += 60;
+				this.y = y;
 			}
 		}
 	}
@@ -96,6 +102,7 @@ public class PanelDrawing extends JPanel{
 				g.drawImage(img, x, y, this);
 				current = current.getNext();
 				y += 60;
+				this.y = y;
 			}
 		}
 	}
@@ -121,5 +128,9 @@ public class PanelDrawing extends JPanel{
 
 	public void setPetition(Queue<Petition> petition) {
 		this.petition = petition;
+	}
+
+	public void showGif() {
+		gr.drawImage(new ImageIcon(ConstantsUI.GIF).getImage(), 100, 700, this);
 	}
 }
