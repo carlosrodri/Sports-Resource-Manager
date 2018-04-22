@@ -1,29 +1,30 @@
 package models.entities;
 
-import java.util.Calendar;
-
 public class Petition {
 	private Student student;
-	private Calendar date;
 	private Element element;
-	
-	public Petition(Student student, Calendar date, Element element) {
+	private int seconds;
+	public Petition(Student student, Element element) {
 		super();
 		this.student = student;
-		this.date = date;
 		this.element = element;
+		seconds = 0;
 	}
 	public Student getStudent() {
 		return student;
 	}
-	public Calendar getDate() {
-		return date;
-	}
 	public Element getElement() {
 		return element;
 	}
+	public int getSeconds() {
+		return seconds;
+	}
+	public void incrementTime() {
+		seconds ++;
+	}
 	@Override
 	public String toString() {
-		return "Petition [student=" + student + ", date=" + date + ", element=" + element + "]";
+		return "Petition [student=" + student + ", element=" + element + ", seconds=" + seconds
+				+ "]";
 	}
 }

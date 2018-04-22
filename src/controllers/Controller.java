@@ -12,10 +12,12 @@ public class Controller implements ActionListener{
 	private DaoManager daoManager;
 	private MainWindow mainWindow;
 	private Timer timer;
+	private Timer timerTime;
 
 	public Controller() {
 		daoManager = new DaoManager();
 		mainWindow  =  new MainWindow(this);
+		incrementTime();
 	}
 
 	public static void main(String[] args) {
@@ -33,7 +35,16 @@ public class Controller implements ActionListener{
 				e1.printStackTrace();
 			}
 			break;
+		case STOP:
+			stopSimulation();
+			break;
 		}
+	}
+
+	private void stopSimulation() {
+		timer.stop();
+		timerTime.stop();
+		daoManager.getTree().print(daoManager.getTree().getRoot());
 	}
 
 	private void addPetition() throws Exception {
@@ -48,9 +59,10 @@ public class Controller implements ActionListener{
 					}
 					mainWindow.setPetition(daoManager.getRequestQueue());
 				}else {
-					timer.stop();
+					//					timer.stop();
 					daoManager.restartLists();
-					mainWindow.stopSimulation();
+					mainWindow.repaintPanel();
+					//					mainWindow.stopSimulation();
 				}
 			}
 		});
@@ -63,5 +75,16 @@ public class Controller implements ActionListener{
 		mainWindow.setVolley(daoManager.getVoleyStack());
 		mainWindow.setFootball(daoManager.getFootballStack());
 		mainWindow.setStudents(daoManager.getStudentQueue());
+	}
+	
+	private void incrementTime() {
+		timerTime = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				daoManager.incrementTime();
+				mainWindow.paintTime(daoManager.getTIme());
+			}
+		});
+		timerTime.start();
 	}
 }

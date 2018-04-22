@@ -10,7 +10,10 @@ public class ConstantsUI {
 	public static final String PEOPLE = "/img/people.png";
 	public static final String ICON = "/img/icon.png";
 	public static final String GIF = "/img/wait.gif";
+	public static final String COURT = "/img/court.jpg";
+	public static final String BACKGROUND = "/img/back.jpg";
 	public static final String ACCEPT_TEXT = "Accept";
+	public static final String STOP = "Stop";
 	public static final String NUMBER_OF_BALLS = "Number of balls";
 	public static final String NUMBER_OF_STUDENTS = "Number of students";
 	public static final String FINISH_SIMULATION = "The simulation finished";

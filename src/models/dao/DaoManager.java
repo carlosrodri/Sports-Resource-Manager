@@ -1,12 +1,17 @@
 package models.dao;
 
-import java.util.GregorianCalendar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 import models.entities.Element;
 import models.entities.Petition;
 import models.entities.Student;
 import structures.ElementStack;
-import structures.Node;
+import structures.NodeList;
+import structures.NodeTree;
 import structures.Queue;
+import structures.Tree;
 
 public class DaoManager {
 	private Queue<Student> studentQueue;
@@ -14,6 +19,9 @@ public class DaoManager {
 	private ElementStack<Element> footballStack, basketStcak, voleyStack;
 	@SuppressWarnings("unused")
 	private String list;
+	private Timer timer;
+	private Tree<Petition> tree;
+	private int seconds;
 
 	public DaoManager() {
 		requestQueue = new Queue<>();
@@ -21,33 +29,34 @@ public class DaoManager {
 		footballStack = new ElementStack<>();
 		basketStcak = new ElementStack<>();
 		voleyStack = new ElementStack<>();
+		tree = new Tree<>();
 	}
 
 	private void generateAllStudents(int quantumStudents){
 		studentQueue.clear();
 		for (int i = 0; i < quantumStudents; i++) {
-			studentQueue.enqueue(new Node<Student>(new Student(i, "Student n "+i)));
+			studentQueue.enqueue(new NodeList<Student>(new Student(i, "Student n "+i)));
 		}
 	}
 
 	private void generateAllBallFootball(int quantum){
 		footballStack.clear();
 		for (int i = 0; i < quantum; i++) {
-			footballStack.push(new Node<Element>(new Element(i, "footballBall")));
+			footballStack.push(new NodeList<Element>(new Element(i, "footballBall")));
 		}
 	}
 
 	private void generateAllBasketBall(int quantum){
 		basketStcak.clear();
 		for (int i = 0; i < quantum; i++) {
-			basketStcak.push(new Node<Element>(new Element(i, "basketBall")));
+			basketStcak.push(new NodeList<Element>(new Element(i, "basketBall")));
 		}
 	}
 
 	private void generateAllBallVolley(int quantum){
 		voleyStack.clear();
 		for (int i = 0; i < quantum; i++) {
-			voleyStack.push(new Node<Element>(new Element(i, "VolleyBall")));
+			voleyStack.push(new NodeList<Element>(new Element(i, "VolleyBall")));
 		}
 	}
 
@@ -72,19 +81,23 @@ public class DaoManager {
 		generateAllStudents(quantumStudents);
 	}
 
+	private int generateRandomTime() {
+		return (int) (Math.random() * 10000) + 1000;
+	}
+
 	private void addFootball() throws Exception {
-		requestQueue.enqueue(new Node<Petition>(new Petition(studentQueue.dequeue().getInformation(),new GregorianCalendar(),
-				footballStack.pop().getInformation())));
+		Petition petition = new Petition(studentQueue.dequeue().getInformation(),footballStack.pop().getInformation());
+		requestQueue.enqueue(new NodeList<Petition>(petition));
 	}
 
 	private void addBasket() throws Exception {
-		requestQueue.enqueue(new Node<Petition>(new Petition(studentQueue.dequeue().getInformation(),new GregorianCalendar(),
-				basketStcak.pop().getInformation())));
+		Petition petition = new Petition(studentQueue.dequeue().getInformation(),basketStcak.pop().getInformation());
+		requestQueue.enqueue(new NodeList<Petition>(petition));
 	}
 
 	private void addVolley() throws Exception {
-		requestQueue.enqueue(new Node<Petition>(new Petition(studentQueue.dequeue().getInformation(),new GregorianCalendar(),
-				voleyStack.pop().getInformation())));
+		Petition petition = new Petition(studentQueue.dequeue().getInformation(),voleyStack.pop().getInformation());
+		requestQueue.enqueue(new NodeList<Petition>(petition));
 	}
 
 	public ElementStack<Element> getVoleyStack() {
@@ -136,26 +149,63 @@ public class DaoManager {
 		case "volley":
 			pushVolley();
 			break;
-		case "Basket":
+		case "basket":
 			pushBasket();
 			break;
 		case "football":
 			pushFootball();
 			break;
+		case "student":
+			addStudent();
+			break;
 		}
 	}
 
+	private void addStudent() {
+		studentQueue.enqueue(new NodeList<Student>(new Student(0, "")));
+	}
+
 	private void pushFootball() {
-		footballStack.push(new Node<Element>(requestQueue.dequeue().getInformation().getElement()));
+		Petition request = requestQueue.dequeue().getInformation();
+		tree.add(new NodeTree<Petition>(request, tree.getRoot()));
+		footballStack.push(new NodeList<Element>(request.getElement()));
 	}
 
 	private void pushBasket() {
-		// TODO Auto-generated method stub
-		
+		Petition request = requestQueue.dequeue().getInformation();
+		tree.add(new NodeTree<Petition>(request, tree.getRoot()));
+		basketStcak.push(new NodeList<Element>(request.getElement()));
 	}
 
 	private void pushVolley() {
-		// TODO Auto-generated method stub
-		
+		Petition request = requestQueue.dequeue().getInformation();
+		tree.add(new NodeTree<Petition>(request, tree.getRoot()));
+		voleyStack.push(new NodeList<Element>(request.getElement()));
+	}
+
+	public void ballsBack() {
+		timer = new Timer(generateRandomTime(), new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(requestQueue != null) {
+					restartLists();
+				}else {
+					timer.stop();
+				}
+			}
+		});
+		timer.start();
+	}
+
+	public Tree<Petition> getTree(){
+		return tree;
+	}
+
+	public void incrementTime() {
+		seconds++;
+	}
+	
+	public int getTIme() {
+		return seconds;
 	}
 }

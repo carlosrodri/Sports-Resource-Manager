@@ -1,11 +1,11 @@
 package structures;
 
-public class Node <T>{
+public class NodeList <T>{
 
-	private Node<T> next;
+	private NodeList<T> next;
 	private T information;
 	
-	public Node(T information) {
+	public NodeList(T information) {
 		this.information = information;
 	}
 
@@ -13,11 +13,11 @@ public class Node <T>{
 		return information;
 	}
 
-	public Node<T> getNext() {
+	public NodeList<T> getNext() {
 		return next;
 	}
 	
-	public void setNext(Node<T> next) {
+	public void setNext(NodeList<T> next) {
 		this.next = next;
 	}
 	

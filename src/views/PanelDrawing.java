@@ -10,7 +10,7 @@ import models.entities.Element;
 import models.entities.Petition;
 import models.entities.Student;
 import structures.ElementStack;
-import structures.Node;
+import structures.NodeList;
 import structures.Queue;
 
 public class PanelDrawing extends JPanel{
@@ -20,7 +20,7 @@ public class PanelDrawing extends JPanel{
 	private Queue<Student> student;
 	private Queue<Petition> petition;
 	private int y;
-	private Graphics gr;
+	private int tIme;
 	public PanelDrawing() {
 		basket = new ElementStack<>();
 		student = new Queue<>();
@@ -30,20 +30,21 @@ public class PanelDrawing extends JPanel{
 	@Override 
 	public void paint(Graphics g) {
 		super.paint(g);
-		gr = g;
 		setPreferredSize(new Dimension(getWidth(), y));
+		g.drawImage(new ImageIcon(getClass().getResource(ConstantsUI.BACKGROUND)).getImage(), 0, 0, getWidth(), getHeight(), this);
 		paintBasket(g);
 		paintVolley(g);
 		paintFootball(g);
 		paintStudent(g);
 		paintPetition(g);
 		paintStore(g);
+		paintTime(g);
 	}
 
 	private void paintBasket(Graphics g) {
 		int x = 250; int y = 20;
 		if(basket != null) {
-			Node<Element> current = basket.getHead();
+			NodeList<Element> current = basket.getHead();
 			Image img = new ImageIcon(getClass().getResource(ConstantsUI.BASKET)).getImage();
 			while (current != null) {
 				g.drawImage(img, x, y, this);
@@ -56,7 +57,7 @@ public class PanelDrawing extends JPanel{
 	private void paintFootball(Graphics g) {
 		int x = 250; int y = 70;
 		if(football != null) {
-			Node<Element> current = football.getHead();
+			NodeList<Element> current = football.getHead();
 			Image img = new ImageIcon(getClass().getResource(ConstantsUI.FOOTBALL)).getImage();
 			while (current != null) {
 				g.drawImage(img, x, y, this);
@@ -69,7 +70,7 @@ public class PanelDrawing extends JPanel{
 	private void paintVolley(Graphics g) {
 		int x = 250; int y = 110;
 		if(volley != null) {
-			Node<Element> current = volley.getHead();
+			NodeList<Element> current = volley.getHead();
 			Image img = new ImageIcon(getClass().getResource(ConstantsUI.VOLLEY)).getImage();
 			while (current != null) {
 				g.drawImage(img, x, y, this);
@@ -82,7 +83,7 @@ public class PanelDrawing extends JPanel{
 	private void paintStudent(Graphics g) {
 		int x = 100; int y = 180;
 		if(student != null) {
-			Node<Student> current = student.getHead();
+			NodeList<Student> current = student.getHead();
 			Image img = new ImageIcon(getClass().getResource(ConstantsUI.PEOPLE)).getImage();
 			while (current != null) {
 				g.drawImage(img, x, y, this);
@@ -96,7 +97,7 @@ public class PanelDrawing extends JPanel{
 	private void paintPetition(Graphics g){
 		int x = 1000; int y = 180;
 		if(petition != null) {
-			Node<Petition> current = petition.getHead();
+			NodeList<Petition> current = petition.getHead();
 			Image img = new ImageIcon(getClass().getResource(ConstantsUI.PLAY)).getImage();
 			while (current != null) {
 				g.drawImage(img, x, y, this);
@@ -111,10 +112,7 @@ public class PanelDrawing extends JPanel{
 		Image img = new ImageIcon(getClass().getResource(ConstantsUI.STORE)).getImage();
 		g.drawImage(img, 100, 65, this);
 	}
-
-	public void showGif() {
-		gr.drawImage(new ImageIcon(getClass().getResource(ConstantsUI.GIF)).getImage(), 100, 70, this);
-	}
+	
 	public void setBasket(ElementStack<Element> basket) {
 		this.basket = basket;
 	}
@@ -133,4 +131,11 @@ public class PanelDrawing extends JPanel{
 		this.petition = petition;
 	}
 
+	public void paintTime(Graphics g) {
+		g.drawString("Time: " + tIme+ "  sec", 100, 50);
+	}
+
+	public void setTime(int time) {
+		this.tIme = time;
+	}
 }

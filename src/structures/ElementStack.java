@@ -2,20 +2,20 @@ package structures;
 
 public class ElementStack <T>{
 
-	private Node<T> head;
-	private Node<T> last;
+	private NodeList<T> head;
+	private NodeList<T> last;
 
 	public ElementStack() {
 		
 	}
 	
-	public Node<T> getLast() {
+	public NodeList<T> getLast() {
 		return last;
 	}
 	
-	public void strainBefore(T info, Node<T> node) {
-		Node<T> reference ;
-		Node<T> current = head;
+	public void strainBefore(T info, NodeList<T> node) {
+		NodeList<T> reference ;
+		NodeList<T> current = head;
 		if(head != null) {
 			if(info.equals(head.getInformation())) {
 				node.setNext(head);
@@ -42,9 +42,9 @@ public class ElementStack <T>{
 		}
 	}
 	
-	public void strainAfter(T info, Node<T> node) {
-		Node<T> reference ;
-		Node<T> current = head;
+	public void strainAfter(T info, NodeList<T> node) {
+		NodeList<T> reference ;
+		NodeList<T> current = head;
 		if(head != null) {
 			if(info.equals(head.getInformation())) {
 				reference = head;
@@ -64,11 +64,11 @@ public class ElementStack <T>{
 		}
 	}
 
-	public Node<T> getHead() {
+	public NodeList<T> getHead() {
 		return head;
 	}
 	
-	public void push(Node<T> node) {
+	public void push(NodeList<T> node) {
 		if(head != null) {
 			node.setNext(head);
 			head = node;
@@ -77,9 +77,9 @@ public class ElementStack <T>{
 		}
 	}
 
-	public Node<T> pop() throws Exception {
+	public NodeList<T> pop() throws Exception {
 	if(head != null) {
-		Node<T> popNode = head;
+		NodeList<T> popNode = head;
 		head = head.getNext();
 		popNode.setNext(null);
 		return popNode;
@@ -88,7 +88,7 @@ public class ElementStack <T>{
 		}
 	}
 	
-	public void enqueueCircle(Node<T> node) {
+	public void enqueueCircle(NodeList<T> node) {
 		if(head != null) {
 			System.out.println(node.getInformation());
 			last.setNext(node);
@@ -101,7 +101,7 @@ public class ElementStack <T>{
 	}
 	
 	public void print() {
-		Node<T> current = head;
+		NodeList<T> current = head;
 		while (current != null) {
 			System.out.println(current.getInformation());
 			current = current.getNext();

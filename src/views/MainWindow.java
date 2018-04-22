@@ -22,7 +22,7 @@ public class MainWindow extends JFrame{
 	private PanelDrawing panelDrawing;
 	private JSpinner spinner, spinnerStudents;
 	private SpinnerNumberModel numberModel, model;
-	private JButton btnAccept;
+	private JButton btnAccept, btnStop;
 	private JScrollPane scrollPane;
 
 
@@ -46,14 +46,18 @@ public class MainWindow extends JFrame{
 		btnAccept.setActionCommand(Actions.ACCEPT.toString());
 		btnAccept.addActionListener(controller);
 
+		btnStop = new JButton(ConstantsUI.STOP);
+		btnStop.setActionCommand(Actions.STOP.toString());
+		btnStop.addActionListener(controller);
+		
 		panelDrawing = new PanelDrawing();
 		scrollPane = new JScrollPane(panelDrawing);
-
 
 		add(scrollPane, gridSystem.insertComponent(0, 0, 12, 0.9));
 		add(spinner, gridSystem.insertComponent(1, 0, 1, 0.01));
 		add(spinnerStudents, gridSystem.insertComponent(2, 0, 1, 0.01));
-		add(btnAccept, gridSystem.insertComponent(3, 0, 1, 0.01));
+		add(btnAccept, gridSystem.insertComponent(1, 1, 1, 0.01));
+		add(btnStop, gridSystem.insertComponent(2, 1, 1, 0.01));
 		setVisible(true);
 	}
 
@@ -93,8 +97,15 @@ public class MainWindow extends JFrame{
 	}
 
 	public void stopSimulation() {
-		panelDrawing.showGif();
 		panelDrawing.repaint();
-		System.out.println("Stooooopppppp");
+	}
+
+	public void repaintPanel() {
+		panelDrawing.repaint();
+	}
+
+	public void paintTime(int tIme) {
+		panelDrawing.setTime(tIme);
+		panelDrawing.repaint();
 	}
 }
