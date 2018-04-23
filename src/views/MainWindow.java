@@ -1,5 +1,7 @@
 package views;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,12 +44,17 @@ public class MainWindow extends JFrame{
 		spinnerStudents = new JSpinner(model);
 		spinnerStudents.setBorder(new TitledBorder(ConstantsUI.NUMBER_OF_STUDENTS));
 
-		btnAccept = new JButton(ConstantsUI.ACCEPT_TEXT);
+		btnAccept = new JButton(new ImageIcon(getClass().getResource(ConstantsUI.START_BUTTON)));
+		btnAccept.setToolTipText(ConstantsUI.ACCEPT_TEXT);
 		btnAccept.setActionCommand(Actions.ACCEPT.toString());
 		btnAccept.addActionListener(controller);
+		btnAccept.setBackground(Color.WHITE);
+		btnAccept.setBorder(null);
 
-		btnStop = new JButton(ConstantsUI.STOP);
+		btnStop = new JButton(new ImageIcon(getClass().getResource(ConstantsUI.STOP_BUTTON)));
+		btnStop.setToolTipText(ConstantsUI.STOP);
 		btnStop.setActionCommand(Actions.STOP.toString());
+		btnStop.setBackground(Color.WHITE);
 		btnStop.addActionListener(controller);
 		
 		panelDrawing = new PanelDrawing();

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
+import constants.ConstantsUI;
 import models.entities.Element;
 import models.entities.Petition;
 import models.entities.Student;
@@ -35,7 +36,7 @@ public class DaoManager {
 	private void generateAllStudents(int quantumStudents){
 		studentQueue.clear();
 		for (int i = 0; i < quantumStudents; i++) {
-			studentQueue.enqueue(new NodeList<Student>(new Student(i, "Student n "+i)));
+			studentQueue.enqueue(new NodeList<Student>(new Student(generateCode(), getName())));
 		}
 	}
 
@@ -85,6 +86,10 @@ public class DaoManager {
 		return (int) (Math.random() * 10000) + 1000;
 	}
 
+	private String getName() {
+		return ConstantsUI.names[(int)(Math.random()*ConstantsUI.names.length-1)];
+	}
+	
 	private void addFootball() throws Exception {
 		Petition petition = new Petition(studentQueue.dequeue().getInformation(),footballStack.pop().getInformation());
 		requestQueue.enqueue(new NodeList<Petition>(petition));
@@ -162,24 +167,28 @@ public class DaoManager {
 	}
 
 	private void addStudent() {
-		studentQueue.enqueue(new NodeList<Student>(new Student(0, "")));
+		studentQueue.enqueue(new NodeList<Student>(new Student(generateCode(), getName())));
+	}
+
+	private int generateCode() {
+		return (int)(Math.random()*500);
 	}
 
 	private void pushFootball() {
 		Petition request = requestQueue.dequeue().getInformation();
-		tree.add(new NodeTree<Petition>(request, tree.getRoot()));
+		tree.add(new NodeTree<Petition>(request, tree.getRoot()), request);
 		footballStack.push(new NodeList<Element>(request.getElement()));
 	}
 
 	private void pushBasket() {
 		Petition request = requestQueue.dequeue().getInformation();
-		tree.add(new NodeTree<Petition>(request, tree.getRoot()));
+		tree.add(new NodeTree<Petition>(request, tree.getRoot()), request);
 		basketStcak.push(new NodeList<Element>(request.getElement()));
 	}
 
 	private void pushVolley() {
 		Petition request = requestQueue.dequeue().getInformation();
-		tree.add(new NodeTree<Petition>(request, tree.getRoot()));
+		tree.add(new NodeTree<Petition>(request, tree.getRoot()), request);
 		voleyStack.push(new NodeList<Element>(request.getElement()));
 	}
 

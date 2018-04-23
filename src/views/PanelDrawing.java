@@ -19,7 +19,8 @@ public class PanelDrawing extends JPanel{
 	private ElementStack<Element> volley, basket, football;
 	private Queue<Student> student;
 	private Queue<Petition> petition;
-	private int y;
+	@SuppressWarnings("unused")
+	private int y, x;
 	private int tIme;
 	public PanelDrawing() {
 		basket = new ElementStack<>();
@@ -93,17 +94,22 @@ public class PanelDrawing extends JPanel{
 			}
 		}
 	}
-	
+
 	private void paintPetition(Graphics g){
-		int x = 1000; int y = 180;
+		int x = 250; int y = 180;
 		if(petition != null) {
 			NodeList<Petition> current = petition.getHead();
 			Image img = new ImageIcon(getClass().getResource(ConstantsUI.PLAY)).getImage();
 			while (current != null) {
 				g.drawImage(img, x, y, this);
 				current = current.getNext();
-				y += 60;
-				this.y = y;
+				if(x <= getWidth()) {
+					x += 60;
+					this.x = x;
+				}else {
+					y += 60;
+					x = 250;
+				}
 			}
 		}
 	}
@@ -112,7 +118,7 @@ public class PanelDrawing extends JPanel{
 		Image img = new ImageIcon(getClass().getResource(ConstantsUI.STORE)).getImage();
 		g.drawImage(img, 100, 65, this);
 	}
-	
+
 	public void setBasket(ElementStack<Element> basket) {
 		this.basket = basket;
 	}
