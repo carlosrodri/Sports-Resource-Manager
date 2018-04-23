@@ -1,5 +1,6 @@
 package constants;
 
+
 public class ConstantsUI {
 
 	public static final String BASKET = "/img/basket.png";
@@ -23,4 +24,5 @@ public class ConstantsUI {
 	public static final long SECONDS = 3000;
 	public static final String[] names = {"Juan", "Maria", "Jhon", "Pedro", "Diana", "Fernanda", "Daniela", "Daniel", "Dylan", "Yaneth", "Francy",
 			"Fernando", "Angie", "Paola", "Tania", "Tatiana", "Vanesa", "Hernando", "Fabio", "Ricardo", "Steven", "Tatiana", "Luis", "Alberto"};
+	public static final String[] HEADER = {"Student","Element", "Time"};
 }

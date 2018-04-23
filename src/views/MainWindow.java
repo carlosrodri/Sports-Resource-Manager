@@ -17,7 +17,6 @@ import models.entities.Petition;
 import models.entities.Student;
 import structures.ElementStack;
 import structures.Queue;
-import structures.Tree;
 
 public class MainWindow extends JFrame{
 
@@ -120,8 +119,8 @@ public class MainWindow extends JFrame{
 		panelDrawing.repaint();
 	}
 	
-	public void setDatas(Tree<Element> tree) {
-		showReport.setDatas(tree.getRoot());
+	public void setDatas(Queue<Petition> list) {
+		showReport.setDatas(list);
 		showReport.setVisible(true);
 	}
 }

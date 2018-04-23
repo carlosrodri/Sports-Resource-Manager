@@ -4,11 +4,14 @@ public class Petition {
 	private Student student;
 	private Element element;
 	private int seconds;
-	public Petition(Student student, Element element) {
+	public Petition(Student student, Element element, int time) {
 		super();
 		this.student = student;
 		this.element = element;
-		seconds = 0;
+		this.seconds = time;
+	}
+	public void setSeconds(int seconds) {
+		this.seconds = seconds;
 	}
 	public Student getStudent() {
 		return student;
@@ -26,5 +29,8 @@ public class Petition {
 	public String toString() {
 		return "Petition [student=" + student + ", element=" + element + ", seconds=" + seconds
 				+ "]";
+	}
+	public Object[] toObjectVector() {
+		return new Object[]{student.getName(), element.getName(), seconds};
 	}
 }

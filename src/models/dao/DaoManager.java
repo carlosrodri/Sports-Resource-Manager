@@ -10,7 +10,6 @@ import models.entities.Petition;
 import models.entities.Student;
 import structures.ElementStack;
 import structures.NodeList;
-import structures.NodeTree;
 import structures.Queue;
 import structures.Tree;
 
@@ -18,10 +17,10 @@ public class DaoManager {
 	private Queue<Student> studentQueue;
 	private Queue<Petition> requestQueue;
 	private ElementStack<Element> footballStack, basketStcak, voleyStack;
-	@SuppressWarnings("unused")
 	private String list;
 	private Timer timer;
 	private Tree<Element> tree;
+	private Queue<Petition> report;
 	private int seconds;
 
 	public DaoManager() {
@@ -30,6 +29,7 @@ public class DaoManager {
 		footballStack = new ElementStack<>();
 		basketStcak = new ElementStack<>();
 		voleyStack = new ElementStack<>();
+		report = new Queue<>();
 		tree = new Tree<>();
 	}
 
@@ -89,19 +89,19 @@ public class DaoManager {
 	private String getName() {
 		return ConstantsUI.names[(int)(Math.random()*ConstantsUI.names.length-1)];
 	}
-	
+
 	private void addFootball() throws Exception {
-		Petition petition = new Petition(studentQueue.dequeue().getInformation(),footballStack.pop().getInformation());
+		Petition petition = new Petition(studentQueue.dequeue().getInformation(),footballStack.pop().getInformation(), getTIme());
 		requestQueue.enqueue(new NodeList<Petition>(petition));
 	}
 
 	private void addBasket() throws Exception {
-		Petition petition = new Petition(studentQueue.dequeue().getInformation(),basketStcak.pop().getInformation());
+		Petition petition = new Petition(studentQueue.dequeue().getInformation(),basketStcak.pop().getInformation(), getTIme());
 		requestQueue.enqueue(new NodeList<Petition>(petition));
 	}
 
 	private void addVolley() throws Exception {
-		Petition petition = new Petition(studentQueue.dequeue().getInformation(),voleyStack.pop().getInformation());
+		Petition petition = new Petition(studentQueue.dequeue().getInformation(),voleyStack.pop().getInformation(), getTIme());
 		requestQueue.enqueue(new NodeList<Petition>(petition));
 	}
 
@@ -175,21 +175,24 @@ public class DaoManager {
 	}
 
 	private void pushFootball() {
-		Element request = requestQueue.dequeue().getInformation().getElement();
-		tree.add(new NodeTree<Element>(request, tree.getRoot()), request);
-		footballStack.push(new NodeList<Element>(request));
+		Petition request = requestQueue.dequeue().getInformation();
+		request.setSeconds(getTIme()-request.getSeconds());
+		report.enqueue(new NodeList<Petition>(request));
+		footballStack.push(new NodeList<Element>(request.getElement()));
 	}
 
 	private void pushBasket() {
-		Element request = requestQueue.dequeue().getInformation().getElement();
-		tree.add(new NodeTree<Element>(request, tree.getRoot()), request);
-		basketStcak.push(new NodeList<Element>(request));
+		Petition request = requestQueue.dequeue().getInformation();
+		request.setSeconds(getTIme()-request.getSeconds());
+		report.enqueue(new NodeList<Petition>(request));
+		basketStcak.push(new NodeList<Element>(request.getElement()));
 	}
 
 	private void pushVolley() {
-		Element request = requestQueue.dequeue().getInformation().getElement();
-		tree.add(new NodeTree<Element>(request, tree.getRoot()), request);
-		voleyStack.push(new NodeList<Element>(request));
+		Petition request = requestQueue.dequeue().getInformation();
+		request.setSeconds(getTIme()-request.getSeconds());
+		report.enqueue(new NodeList<Petition>(request));
+		voleyStack.push(new NodeList<Element>(request.getElement()));
 	}
 
 	public void ballsBack() {
@@ -213,8 +216,22 @@ public class DaoManager {
 	public void incrementTime() {
 		seconds++;
 	}
-	
+
 	public int getTIme() {
 		return seconds;
+	}
+
+	public Queue<Petition> getreport(){
+		return report;
+	}
+
+	public void report() {
+		if(!requestQueue.isEmpty()) {
+			NodeList<Petition> current = requestQueue.getHead();
+			while (current != null) {
+				report.enqueue(current);
+				current = current.getNext();
+			}
+		}
 	}
 }

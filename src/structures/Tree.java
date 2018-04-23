@@ -35,12 +35,12 @@ public class Tree<T> {
 		for (NodeTree<T> iterable_element : node.getNodeList()) {
 			System.out.println(iterable_element.getNodeList().size() + "list interna");
 		}
-//		if (node.getNodeList() != null) {
-//			System.out.println(node.getInfo() + "    padre");
-//			printList(node.getNodeList());
-//		}else {
-//			System.out.println(node.getInfo().toString());
-//		}
+		if (node.getNodeList() != null) {
+			System.out.println(node.getInfo() + "    padre");
+			printList(node.getNodeList());
+		}else {
+			System.out.println(node.getInfo().toString());
+		}
 	}
 
 	private void printList(ArrayList<NodeTree<T>> list) {

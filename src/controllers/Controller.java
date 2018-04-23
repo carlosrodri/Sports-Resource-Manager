@@ -44,8 +44,8 @@ public class Controller implements ActionListener{
 	private void stopSimulation() {
 		timer.stop();
 		timerTime.stop();
-		daoManager.getTree().print(daoManager.getTree().getRoot());
-		mainWindow.setDatas(daoManager.getTree());
+//		daoManager.report();
+		mainWindow.setDatas(daoManager.getreport());
 	}
 
 	private void addPetition() throws Exception {
