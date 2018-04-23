@@ -5,69 +5,77 @@ import java.util.ArrayList;
 public class Tree<T> {
 
 	private NodeTree<T> root;
-	private int i = 0;
 
 	public Tree() {
 		root = new NodeTree<T>(null, null);
 	}
 
 	public void add(NodeTree<T> node, T info) {
-		if (root.getNodeList() != null && root.getNodeList().size() > 3) {
-			search(info).addToList(node);
-			System.out.println(search(info).
-					getInfo().toString() 
-					+ "nide + ---" + info.toString());
+		NodeTree<T> search = search(info);
+		if(!validate(node.getInfo())) {
+			System.out.println("primer elemento hijo--...");
+			search.addToList(node);
 		}else {
-			root.addToList(new NodeTree<T>(info, root));
+			root.addToList(node);
 		}
-		i++;
 	}
 
-	//	private void add(NodeTree<T> node, NodeTree<T> fatherNode) {
-	//		fatherNode.addToList(node);
-	//	}
+	private boolean validate(T info) {
+		if(root.getNodeList().size() != 0) {
+			for (NodeTree<T> node : root.getNodeList()) {
+				if(node.getInfo().equals(info)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	public void print(NodeTree<T> node) {
-		if (node.getNodeList() != null) {
-			System.out.println(node.getInfo() + "    padre");
-			printList(node.getNodeList());
-		}else {
-			System.out.println(node.getInfo().toString());
+		for (NodeTree<T> iterable_element : node.getNodeList()) {
+			System.out.println(iterable_element.getNodeList().size() + "list interna");
 		}
+//		if (node.getNodeList() != null) {
+//			System.out.println(node.getInfo() + "    padre");
+//			printList(node.getNodeList());
+//		}else {
+//			System.out.println(node.getInfo().toString());
+//		}
 	}
 
 	private void printList(ArrayList<NodeTree<T>> list) {
+		int i = 0;
 		for (NodeTree<T> node : list) {
 			System.out.println(node.getInfo() + "    hijo");
-			//			print(node);
+		}
+		if(i < list.size()) {
+		print(list.get(i));
+		i++;
 		}
 	}
 
 	public NodeTree<T> search(T info){
-		if(root != null) {
-			if(root.getInfo() == null) {
-				return root;
-			}else {
-				return search(info, root.getNodeList().get(0));
+		for (NodeTree<T> iterable_element : root.getNodeList()) {
+			if(iterable_element.equals(info)) {
+				return iterable_element;
 			}
 		}
-		System.out.println("retorna nuloooooo");
 		return root;
 	}
 
-	private NodeTree<T> search(T info, NodeTree<T> nodeTree) {
-		if(nodeTree.getNodeList() != null) {
-			for (NodeTree<T> node : nodeTree.getNodeList()) {
-				if(node.getInfo().equals(info)) {
-					return node;
-				}else {
-					return search(info, node);
-				}
-			}
-		}
-		System.out.println("retorna nuloooooo en profundidad");
-		return nodeTree;
-	}
+	//	private NodeTree<T> search(T info, NodeTree<T> nodeTree) {
+	//		if(nodeTree.getNodeList() != null) {
+	//			for (NodeTree<T> node : nodeTree.getNodeList()) {
+	//				if(node.getInfo().equals(info)) {
+	//					return node;
+	//				}else {
+	//					return search(info, node);
+	//				}
+	//			}
+	//		}
+	//		System.out.println("retorna nuloooooo en profundidad");
+	//		return nodeTree;
+	//	}
 
 	public NodeTree<T> getRoot(){
 		return root;

@@ -17,6 +17,7 @@ import models.entities.Petition;
 import models.entities.Student;
 import structures.ElementStack;
 import structures.Queue;
+import structures.Tree;
 
 public class MainWindow extends JFrame{
 
@@ -26,6 +27,7 @@ public class MainWindow extends JFrame{
 	private SpinnerNumberModel numberModel, model;
 	private JButton btnAccept, btnStop;
 	private JScrollPane scrollPane;
+	private ShowReport showReport;
 
 
 	public MainWindow(Controller controller) {
@@ -34,6 +36,8 @@ public class MainWindow extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getClass().getResource(ConstantsUI.ICON)).getImage());
 		setTitle(ConstantsUI.TITLE);
+		
+		showReport = new ShowReport();
 		
 		numberModel = new SpinnerNumberModel(1, 1, 15, 1);
 		model = new SpinnerNumberModel(1, 1, 15, 1);
@@ -114,5 +118,10 @@ public class MainWindow extends JFrame{
 	public void paintTime(int tIme) {
 		panelDrawing.setTime(tIme);
 		panelDrawing.repaint();
+	}
+	
+	public void setDatas(Tree<Element> tree) {
+		showReport.setDatas(tree.getRoot());
+		showReport.setVisible(true);
 	}
 }

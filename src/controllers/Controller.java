@@ -45,10 +45,11 @@ public class Controller implements ActionListener{
 		timer.stop();
 		timerTime.stop();
 		daoManager.getTree().print(daoManager.getTree().getRoot());
+		mainWindow.setDatas(daoManager.getTree());
 	}
 
 	private void addPetition() throws Exception {
-		timer = new Timer(1000, new ActionListener() {
+		timer = new Timer(500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!daoManager.validate()) {
